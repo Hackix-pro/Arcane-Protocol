@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 200 100% 95%;
+
+    --card: 222 47% 6%;
+    --card-foreground: 200 100% 95%;
+
+    --popover: 222 47% 5%;
+    --popover-foreground: 200 100% 95%;
+
+    --primary: 190 100% 50%;
+    --primary-foreground: 222 47% 4%;
+
+    --secondary: 270 100% 60%;
+    --secondary-foreground: 200 100% 95%;
+
+    --muted: 222 30% 12%;
+    --muted-foreground: 200 20% 60%;
+
+    --accent: 270 100% 60%;
+    --accent-foreground: 200 100% 95%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 200 100% 95%;
+
+    --border: 200 100% 50% / 0.2;
+    --input: 200 100% 50% / 0.15;
+    --ring: 190 100% 50%;
+
+    --radius: 0.25rem;
+
+    --glow-primary: 0 0 20px hsl(190 100% 50% / 0.5), 0 0 40px hsl(190 100% 50% / 0.3);
+    --glow-secondary: 0 0 20px hsl(270 100% 60% / 0.5), 0 0 40px hsl(270 100% 60% / 0.3);
+    --glow-danger: 0 0 20px hsl(0 100% 50% / 0.5), 0 0 40px hsl(0 100% 50% / 0.3);
+    --glow-success: 0 0 20px hsl(150 100% 50% / 0.5), 0 0 40px hsl(150 100% 50% / 0.3);
+
+    --gradient-system: linear-gradient(135deg, hsl(222 47% 6%) 0%, hsl(222 47% 4%) 100%);
+    --gradient-holographic: linear-gradient(135deg, hsl(190 100% 50% / 0.1) 0%, hsl(270 100% 60% / 0.1) 100%);
+    --gradient-danger: linear-gradient(135deg, hsl(0 100% 50% / 0.2) 0%, hsl(0 100% 30% / 0.1) 100%);
+  }
+
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 200 100% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Share Tech Mono', monospace;
+    background: 
+      radial-gradient(ellipse at top, hsl(222 47% 8%) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, hsl(270 100% 10% / 0.2) 0%, transparent 50%),
+      hsl(222 47% 4%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer components {
+  .system-panel {
+    @apply relative bg-card/80 backdrop-blur-sm border border-primary/20 rounded-sm;
+    background: var(--gradient-system);
+    box-shadow: 
+      inset 0 1px 0 hsl(200 100% 50% / 0.1),
+      0 0 30px hsl(190 100% 50% / 0.1);
+  }
+
+  .system-panel::before {
+    content: '';
+    @apply absolute inset-0 rounded-sm pointer-events-none;
+    background: var(--gradient-holographic);
+    opacity: 0.5;
+  }
+
+  .holographic-border {
+    @apply relative;
+    border: 1px solid transparent;
+    background: linear-gradient(hsl(222 47% 6%), hsl(222 47% 6%)) padding-box,
+                linear-gradient(135deg, hsl(190 100% 50% / 0.5), hsl(270 100% 60% / 0.3), hsl(190 100% 50% / 0.5)) border-box;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+
+  .glow-text-subtle {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+
+  .scanline {
+    @apply relative overflow-hidden;
+  }
+
+  .scanline::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(200 100% 50% / 0.03) 2px,
+      hsl(200 100% 50% / 0.03) 4px
+    );
+  }
+
+  .system-input {
+    @apply bg-background/50 border border-primary/30 rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300;
+    box-shadow: inset 0 0 20px hsl(190 100% 50% / 0.05);
+  }
+
+  .system-input:focus {
+    box-shadow: 
+      inset 0 0 20px hsl(190 100% 50% / 0.1),
+      0 0 20px hsl(190 100% 50% / 0.2);
+  }
+
+  .system-button {
+    @apply relative bg-primary/10 border border-primary/50 text-primary px-6 py-3 rounded-sm font-bold uppercase tracking-widest transition-all duration-300 overflow-hidden;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .system-button:hover {
+    @apply bg-primary/20 border-primary;
+    box-shadow: var(--glow-primary);
+  }
+
+  .system-button:active {
+    @apply scale-95;
+  }
+
+  .system-button-secondary {
+    @apply system-button border-secondary/50 text-secondary bg-secondary/10;
+  }
+
+  .system-button-secondary:hover {
+    @apply bg-secondary/20 border-secondary;
+    box-shadow: var(--glow-secondary);
+  }
+
+  .system-button-danger {
+    @apply system-button border-destructive/50 text-destructive bg-destructive/10;
+  }
+
+  .system-button-danger:hover {
+    @apply bg-destructive/20 border-destructive;
+    box-shadow: var(--glow-danger);
+  }
+
+  .xp-bar {
+    @apply relative h-3 bg-muted/50 rounded-full overflow-hidden;
+  }
+
+  .xp-bar-fill {
+    @apply absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary to-secondary rounded-full transition-all duration-500;
+    box-shadow: 0 0 10px hsl(190 100% 50% / 0.5);
+  }
+
+  .rank-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-sm border text-sm font-bold uppercase tracking-wider;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .rank-null { @apply border-muted-foreground/50 text-muted-foreground bg-muted/20; }
+  .rank-awakened { @apply border-cyan-500/50 text-cyan-400 bg-cyan-500/10; }
+  .rank-branded { @apply border-blue-500/50 text-blue-400 bg-blue-500/10; }
+  .rank-warden { @apply border-green-500/50 text-green-400 bg-green-500/10; }
+  .rank-reaper { @apply border-yellow-500/50 text-yellow-400 bg-yellow-500/10; }
+  .rank-harbinger { @apply border-orange-500/50 text-orange-400 bg-orange-500/10; }
+  .rank-overlord { @apply border-red-500/50 text-red-400 bg-red-500/10; }
+  .rank-voidborne { @apply border-purple-500/50 text-purple-400 bg-purple-500/10; }
+  .rank-sovereign { @apply border-pink-500/50 text-pink-300 bg-pink-500/10 animate-pulse; }
+
+  .quest-card {
+    @apply system-panel p-4 transition-all duration-300 cursor-pointer;
+  }
+
+  .quest-card:hover {
+    @apply border-primary/50;
+    box-shadow: 0 0 30px hsl(190 100% 50% / 0.2);
+  }
+
+  .forge-panel {
+    background: var(--gradient-danger);
+    @apply border-destructive/30;
+  }
+
+  .forge-panel:hover {
+    box-shadow: var(--glow-danger);
+  }
+
+  .terminal-text {
+    font-family: 'Share Tech Mono', monospace;
+    @apply text-primary;
+  }
+
+  .system-message {
+    @apply bg-primary/10 border border-primary/30 px-4 py-2 rounded-sm text-primary text-sm font-bold uppercase tracking-wider;
+    font-family: 'Orbitron', sans-serif;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .system-message-danger {
+    @apply bg-destructive/10 border-destructive/30 text-destructive;
+  }
+
+  .system-message-success {
+    @apply border-green-500/30 text-green-400 bg-green-500/10;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+}
+
+@layer utilities {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 10px hsl(190 100% 50% / 0.3); }
+    to { box-shadow: 0 0 30px hsl(190 100% 50% / 0.6), 0 0 60px hsl(190 100% 50% / 0.3); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+
+  .border-gradient {
+    border-image: linear-gradient(135deg, hsl(190 100% 50%), hsl(270 100% 60%)) 1;
+  }
+}
